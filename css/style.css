@@ -1,0 +1,26 @@
+body{margin: 0 auto; padding: 50px 0;}
+
+h1{margin: 0 0 10px 0; font-family: helvetica; font-weight: 400; text-align: center;}
+h3{margin: 0; font-family: helvetica; font-weight: 400; text-align: center;}
+ p{text-align: justify;}
+
+header{width: 75vw; margin: 0 auto;}
+	header h3{font-style: italic;}
+	header hr{margin: 25px 0;}
+
+#part1,#part2,#part4{width: 75vw; margin: 0 auto;}
+
+.container{display: flex; justify-content: center;}
+
+/* Part 1 */
+#part1 .container{margin-bottom: 50px}
+	#part1 .container img{width: 32.5vw; height: 100%;}
+	#part1 .container img:first-child{margin-right: 10vw;}
+
+#part1 #acImages{}
+	#part1 #acImages img{width: 20vw;}
+	#part1 #acImages img:not(:last-child){margin-right: 7.5vw;}
+
+/* Part 2 */
+
+/* Part 4 */

@@ -1,0 +1,211 @@
+<head>
+	<title>Midterm Project: Part 4</title>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+	<script src='libraries/p5.min.js'></script>
+	<script src='libraries/p5.dom.min.js'></script>
+	<script src='game_final.js'></script>
+
+	<!--Icons designed by Smashicons from Flaticon-->
+	<link rel='stylesheet' type='text/css' href='fonts/flaticon.css'>
+
+	<style>
+		body{background: #aaaaaa; margin: 0;}
+		p{margin: 25px 0 5px 25px; font-family: Helvetica, sans-serif; font-size: 18px;}
+		span{font-family: Helvetica, sans-serif; font-size: 14px;}
+		.container{display: flex; justify-content: space-between;}
+
+		form{display: none;}
+
+		#palette{border: 5px solid #000000; width: 130px; margin: 0 0 0 25px; position: relative;}
+			#palette span{visibility: hidden; width: 250px; background-color: #ffffff; text-align: center; padding: 5px 0; border-radius: 5px; position: absolute; z-index: 1; top: -5px; left: 110%;}
+			#palette span::after{content: ' '; position: absolute; top: 50%; right: 100%; margin-top: -5px; border: none; border-width: 5px; border-style: solid; border-color: transparent #ffffff transparent transparent;}
+			#palette:hover span{visibility: visible;}
+			#palette .paletteRow{height: 40px; margin: 0;}
+			#palette .paletteRow:last-child{height: 50px;}
+				#palette .paletteRow button{border: none; width: 30px; height: 30px; padding: 0; margin: 10px -4px 0 10px;}
+				#palette .paletteRow button:hover{cursor: pointer;}
+				#palette .paletteRow button:focus{outline: none;}
+					#palette div #btn01{background-color: #7d0006;}
+					#palette div #btn02{background-color: #ff0000;}
+					#palette div #btn03{background-color: #f5aec0;}
+					#palette div #btn04{background-color: #ed891f;}
+					#palette div #btn05{background-color: #fab914;}
+					#palette div #btn06{background-color: #ffdd00;}
+					#palette div #btn07{background-color: #00874f;}
+					#palette div #btn08{background-color: #8cc740;}
+					#palette div #btn09{background-color: #c2d930;}
+					#palette div #btn10{background-color: #0067a3;}
+					#palette div #btn11{background-color: #67c7c2;}
+					#palette div #btn12{background-color: #7fb2c9;}
+					#palette div #btn13{background-color: #682e8f;}
+					#palette div #btn14{background-color: #863b8f;}
+					#palette div #btn15{background-color: #c1c5de;}
+					#palette div #btn16{background-color: #000000;}
+					#palette div #btn17{background-color: #a64b0f;}
+					#palette div #btn18{background-color: #ffffff;}
+
+		#tools{border: 5px solid #000000; width: 130px; margin: 0 0 0 25px; position: relative;}
+			#tools button{width: 30px; height: 30px; margin: 10px -4px 0 10px; border: none; padding: 0; background: none;}
+			#tools button:hover{cursor: pointer;}
+			#tools button:focus{outline: none;}
+			#tools button:first-child{margin-top: 10px;}
+			#tools button:last-child{margin-bottom: 10px;}
+				#tools button i:before{margin: 0; font-size: 30px;}
+				#tools button #brush0{color: #ffffff;}
+				#tools button span{top: 10px; visibility: hidden; width: 125px; background-color: #ffffff; text-align: center; padding: 5px 0; border-radius: 5px; position: absolute; z-index: 1; left: 110%;}
+				#tools button .row2{top: 50px;}
+				#tools button .row3{top: 95px;}
+				#tools button span::after{content: ' '; position: absolute; top: 50%; right: 100%; margin-top: -5px; border: none; border-width: 5px; border-style: solid; border-color: transparent #ffffff transparent transparent;}
+				#tools button:hover span{visibility: visible;}
+
+		#saveModal{display: none; z-index: 9; width: 350px; background-color: #ffffff; padding: 15px; position: fixed; top: 5vw; left: 50%; margin-left: -175px; border: 5px solid #000000;}
+			#saveModal p{margin: 0; text-align: center;}
+			#saveModal form{display: block; margin: 0 auto; width: fit-content;}
+				#saveModal form input{border: solid 3px #000000; margin: 0; line-height: 22px; padding: 0 5px;}
+				#saveModal form button{background: none; border: solid 3px #000000; margin: 0 0 0 10px; line-height: 22px; padding: 0 5px;}
+				#saveModal form button:hover{background-color: #000000; color: #ffffff; cursor: pointer;}
+	</style>
+</head>
+<body>
+	<!-- Hidden color selectors -->
+	<form onchange='currentColor("in01")'><input id='in01' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in02")'><input id='in02' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in03")'><input id='in03' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in04")'><input id='in04' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in05")'><input id='in05' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in06")'><input id='in06' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in07")'><input id='in07' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in08")'><input id='in08' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in09")'><input id='in09' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in10")'><input id='in10' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in11")'><input id='in11' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in12")'><input id='in12' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in13")'><input id='in13' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in14")'><input id='in14' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in15")'><input id='in15' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in16")'><input id='in16' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in17")'><input id='in17' type='color' tabindex=-1></form>
+	<form onchange='currentColor("in18")'><input id='in18' type='color' tabindex=-1></form>
+
+	<p>Palette</p>
+	<div id='palette'>
+		<span>Click once to select a color.<br>Double-click to set a custom color.</span>
+		<!-- Dual function buttons -->
+		<div class='paletteRow'>
+			<button id='btn01' onclick='changeColor("btn01")' ondblclick='customColor("in01")'></button>
+			<button id='btn02' onclick='changeColor("btn02")' ondblclick='customColor("in02")'></button>
+			<button id='btn03' onclick='changeColor("btn03")' ondblclick='customColor("in03")'></button>
+		</div>
+		<div class='paletteRow'>
+			<button id='btn04' onclick='changeColor("btn04")' ondblclick='customColor("in04")'></button>
+			<button id='btn05' onclick='changeColor("btn05")' ondblclick='customColor("in05")'></button>
+			<button id='btn06' onclick='changeColor("btn06")' ondblclick='customColor("in06")'></button>
+		</div>
+		<div class='paletteRow'>
+			<button id='btn07' onclick='changeColor("btn07")' ondblclick='customColor("in07")'></button>
+			<button id='btn08' onclick='changeColor("btn08")' ondblclick='customColor("in08")'></button>
+			<button id='btn09' onclick='changeColor("btn09")' ondblclick='customColor("in09")'></button>
+		</div>
+		<div class='paletteRow'>
+			<button id='btn10' onclick='changeColor("btn10")' ondblclick='customColor("in10")'></button>
+			<button id='btn11' onclick='changeColor("btn11")' ondblclick='customColor("in11")'></button>
+			<button id='btn12' onclick='changeColor("btn12")' ondblclick='customColor("in12")'></button>
+		</div>
+		<div class='paletteRow'>
+			<button id='btn13' onclick='changeColor("btn13")' ondblclick='customColor("in13")'></button>
+			<button id='btn14' onclick='changeColor("btn14")' ondblclick='customColor("in14")'></button>
+			<button id='btn15' onclick='changeColor("btn15")' ondblclick='customColor("in15")'></button>
+		</div>
+		<div class='paletteRow'>
+			<button id='btn16' onclick='changeColor("btn16")' ondblclick='customColor("in16")'></button>
+			<button id='btn17' onclick='changeColor("btn17")' ondblclick='customColor("in17")'></button>
+			<button id='btn18' onclick='changeColor("btn18")' ondblclick='customColor("in18")'></button>
+		</div>
+	</div>
+
+	<p>Tools</p>
+	<div id='tools'>
+		<button onclick='changeBrush(0)'>
+			<i id='brush0' class='flaticon-045-brush'></i>
+			<span class='row1'>Small Brush</span>
+		</button>
+		<button  onclick='changeBrush(1)'>
+			<i id='brush1' class='flaticon-044-brush-1'></i>
+			<span class='row1'>Medium Brush</span>
+		</button>
+		<button onclick='changeBrush(2)'>
+			<i id='brush2' class='flaticon-042-brush-3'></i>
+			<span class='row1'>Large Brush</span>
+		</button>
+		<button onclick='fillGrid()'>
+			<i class='flaticon-016-bucket'></i>
+			<span class='row2'>Fill Canvas</span>
+		</button>
+		<button onclick='eraser()' >
+			<i class='flaticon-013-eraser-2'></i>
+			<span class='row2'>Eraser</span>
+		</button>
+		<button onclick='toggleGrid()'>
+			<i class='flaticon-008-ruler'></i>
+			<span class='row2'>Toggle Gridlines</span>
+		</button>
+		<button onclick='gridReset()'>
+			<i class='flaticon-002-easel'></i>
+			<span class='row3'>Reset Canvas</span>
+		</button>
+		<button onclick='paletteReset()'>
+			<i class='flaticon-003-palette'></i>
+			<span class='row3'>Reset Palette</span>
+		</button>
+		<button onclick='saveImage()'>
+			<i class='flaticon-005-wand'></i>
+			<span class='row3'>Save Image</span>
+		</button>
+	</div>
+
+	<div id='saveModal'>
+		<p>
+			You've made an amazing piece of art!
+			<br><br>
+			What is the name of your piece?
+		</p>
+		<br>
+		<form onsubmit='return saveImage2(this);' method='POST'>
+			<!-- <button id='databaseSave' onclick='databaseSave()'>Save to Pixel Art Creator</button> -->
+			<input id='imageName' required><button>Save</button>
+		</div>
+	</div>
+</body>
+
+<!-- <script>
+	calculateGrid(<?php echo $_POST['squareDim']?>,<?php echo $_POST['gridDim']?>);
+
+	function databaseSave(){
+		<?php
+			$db_type     = 'mysql';
+			$db_server   = 'warehouse.cims.nyu.edu';
+			$db_name     = 'ec2937_pixelArt';
+			$db_user     = 'ec2937';
+			$db_password = 'nyuclubs_letmein';
+
+			$db_link = mysql_connect($db_server, $db_user, $db_password);
+
+			if (!$db_link){
+			    die("Could not connect: " . mysql_error());
+			}
+
+			echo "console.log('Connected!')";
+
+			$db_selected = mysql_select_db($db_name, $db_link);
+
+			if (!$db_selected){
+			    die("Can't use \"$db_name\" : " . mysql_error());
+			}
+
+			echo "console.log('Selected!')";
+
+			mysql_close($db_link)
+		?>
+		// save('myPixelArt.png');
+	};
+</script> -->

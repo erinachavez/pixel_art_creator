@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Midterm Project: Part 4</title>
+
+		<!-- Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146842391-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'UA-146842391-1');
+		</script>
+
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+		<script src='libraries/p5.min.js'></script>
+		<script src='libraries/p5.dom.min.js'></script>
+		<script src='libraries/p5.sound.min.js'></script>
+		<script src='game_final.js'></script>
+
+		<script>
+			function setup(){
+				wWidth = windowWidth - 90;
+				wHeight = windowHeight;
+
+				var r1 = parseInt(random(255));
+				var g1 = parseInt(random(255));
+				var b1 = parseInt(random(255));
+				var bg1 = 'rgb(' + r1 + ',' + g1 + ',' + b1 + ')';
+
+				var r2 = parseInt(random(255));
+				var g2 = parseInt(random(255));
+				var b2 = parseInt(random(255));
+				var bg2 = 'rgb(' + r2 + ',' + g2 + ',' + b2 + ')';
+
+				$('body').css('background','linear-gradient(to bottom right,' + bg1 + ',' + bg2 + ')');
+
+				if (r1 < 127 || g1 < 127 || b1 < 127){
+					$('h1,h3').css('color','#ffffff');
+				};
+				if (r1 > 200 || g1 > 200 || b1 > 200){
+					$('h1,h3').css('color','#000000');
+				}
+			}
+		</script>
+
+		<style>
+			@font-face{font-family: pixelFont; src: url(fonts/pixelmix.ttf);}
+			body{width: 100vw; height: 100vh; margin: 0; position: relative;}
+				h1{font-family: pixelFont; margin: 50px 0 10px 0; text-align: center; font-size: 30px; line-height: 30px;}
+				h3{font-family: Helvetica, sans-serif; font-size: 18px; line-height: 18px; text-align: center;}
+				form{width: 200px; background-color: #ffffff; position: absolute; top: 0; left: 50%; margin: 104px 0 0 -125px; padding: 10px;}
+					label h2{font-family: Helvetica, sans-serif; font-size: 18px; font-weight: 400; margin: 0 0 5px 0; line-height: 20px;}
+					label  p{font-family: Helvetica, sans-serif; font-size: 14px; line-height: 14px; text-align: center;}
+					input{width: 100px; border: 1px solid #aaaaaa; margin: 20px auto; display: block;}
+					button{width: 50px; border: 1px solid #aaaaaa; margin: 0 auto; display: block; background-color: none;}
+				#form2{display: none;}
+					#form2 #squareDimHidden{display: none;}
+		</style>
+	</head>
+	<body>
+		<h1>Pixel Art Creator</h1>
+		<h3>To start creating your own pixel art, enter the following information!</h3>
+		<form id='form1' onsubmit='calcGridSize(); return false;' method='POST'>
+			<label>
+				<h2>Square Size</h2>
+				<p>(Dimensions of Pixel)</p>
+			</label>
+			<input id='squareDim' name='squareDim' type='number' min='8' max='50' required>
+			<button type='submit'>Next</button>
+		</form>
+
+		<form id='form2' action='game.html' method='GET'>
+			<input id='squareDimHidden' name='squareDim'>
+			<label>
+				<h2>Grid Size</h2>
+				<p>(# of Squares)</p>
+			</label>
+			<input id='gridDim' name='gridDim' type='number' min='1' required>
+
+			<button type='submit'>Submit</button>
+		</form>
+	</body>
+</html>
